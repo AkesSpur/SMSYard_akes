@@ -1,4 +1,5 @@
 
+
 export const NAV_ITEMS = [
   { label: 'Logo', href: '#logo' },
   { label: 'Typography', href: '#typography' },
@@ -56,5 +57,38 @@ export const THEME_TOKENS = [
     description: 'Secondary labels and captions',
     light: { hex: '#64748B', label: 'Slate 500' },
     dark: { hex: '#A1A1AA', label: 'Zinc 400' }
+  }
+];
+
+export const BUTTON_TOKENS = [
+  {
+    token: 'Primary Bg',
+    description: 'Main action background',
+    light: { hex: '#2563EB', label: 'Blue 600' },
+    dark: { hex: '#2563EB', label: 'Blue 600' }
+  },
+  {
+    token: 'Primary Text',
+    description: 'Main action text color',
+    light: { hex: '#FFFFFF', label: 'White' },
+    dark: { hex: '#FFFFFF', label: 'White' }
+  },
+  {
+    token: 'Secondary Bg',
+    description: 'Secondary action background',
+    light: { hex: '#FFFFFF', label: 'White' },
+    dark: { hex: '#000000', label: 'Black' }
+  },
+  {
+    token: 'Secondary Border',
+    description: 'Secondary action border',
+    light: { hex: '#E2E8F0', label: 'Slate 200' },
+    dark: { hex: '#27272A', label: 'Zinc 800' }
+  },
+  {
+    token: 'Secondary Text',
+    description: 'Secondary action text',
+    light: { hex: '#0F172A', label: 'Slate 900' },
+    dark: { hex: '#FFFFFF', label: 'White' }
   }
 ];

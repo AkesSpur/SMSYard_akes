@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { SectionHeader } from './SectionHeader';
-import { ArrowRight, Check, AlertCircle } from 'lucide-react';
+import { ArrowRight, Check, AlertCircle, ChevronDown } from 'lucide-react';
 
 export const BrandAssets: React.FC = () => {
   return (
@@ -52,7 +53,22 @@ export const BrandAssets: React.FC = () => {
                     <label className="text-sm font-medium text-light-text dark:text-dark-muted">Email Address</label>
                     <input type="text" placeholder="name@smsyard.com" className="w-full px-3 py-2 bg-white dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg text-sm text-primary-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 transition-all placeholder:text-slate-400" />
                 </div>
+                
                 <div className="space-y-2">
+                    <label className="text-sm font-medium text-light-text dark:text-dark-muted">Region</label>
+                    <div className="relative">
+                        <select className="w-full px-3 py-2 bg-white dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg text-sm text-primary-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 transition-all appearance-none">
+                            <option>US East (N. Virginia)</option>
+                            <option>EU West (Ireland)</option>
+                            <option>Asia Pacific (Tokyo)</option>
+                        </select>
+                        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-500">
+                            <ChevronDown size={16} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="space-y-2 md:col-span-2">
                     <label className="text-sm font-medium text-light-text dark:text-dark-muted">API Key</label>
                     <div className="relative">
                         <input type="text" value="sk_live_51M..." readOnly className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800/50 border border-light-border dark:border-dark-border rounded-lg text-sm text-slate-500 dark:text-slate-400 font-mono" />

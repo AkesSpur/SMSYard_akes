@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { LogoSystem } from './components/LogoSystem';
@@ -9,7 +11,7 @@ import { Icons } from './components/Icons';
 import { Favicons } from './components/Favicons';
 import { Footer } from './components/Footer';
 import { Toast } from './components/Toast';
-import { COLORS, THEME_TOKENS } from './constants';
+import { COLORS, THEME_TOKENS, BUTTON_TOKENS } from './constants';
 import JSZip from 'jszip';
 
 const App: React.FC = () => {
@@ -86,6 +88,13 @@ const App: React.FC = () => {
     content += `THEME TOKENS (SEMANTIC)\n`;
     content += `-----------------------\n`;
     THEME_TOKENS.forEach(item => {
+        content += `${item.token.padEnd(16)} | Light: ${item.light.hex.padEnd(8)} (${item.light.label}) | Dark: ${item.dark.hex.padEnd(8)} (${item.dark.label})\n`;
+    });
+    content += `\n`;
+
+    content += `BUTTON TOKENS\n`;
+    content += `-------------\n`;
+    BUTTON_TOKENS.forEach(item => {
         content += `${item.token.padEnd(16)} | Light: ${item.light.hex.padEnd(8)} (${item.light.label}) | Dark: ${item.dark.hex.padEnd(8)} (${item.dark.label})\n`;
     });
     content += `\n`;

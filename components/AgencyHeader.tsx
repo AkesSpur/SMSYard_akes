@@ -17,6 +17,16 @@ export const AgencyHeader: React.FC<HeaderProps> = ({ onDownload, theme, toggleT
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const id = href.replace('#', '');
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    closeMobileMenu();
+  };
+
   return (
     <header className="fixed top-0 w-full bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-light-border dark:border-dark-border z-50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
@@ -37,7 +47,8 @@ export const AgencyHeader: React.FC<HeaderProps> = ({ onDownload, theme, toggleT
                 <a 
                 key={item.label} 
                 href={item.href} 
-                className="hover:text-primary-900 dark:hover:text-white transition-colors"
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="hover:text-primary-900 dark:hover:text-white transition-colors cursor-pointer"
                 >
                 {item.label}
                 </a>
@@ -75,7 +86,7 @@ export const AgencyHeader: React.FC<HeaderProps> = ({ onDownload, theme, toggleT
                     <a 
                         key={item.label} 
                         href={item.href} 
-                        onClick={closeMobileMenu}
+                        onClick={(e) => handleNavClick(e, item.href)}
                         className={`text-primary-900 dark:text-white hover:text-agency-600 dark:hover:text-agency-500 transition-all transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'}`}
                         style={{ transitionDelay: `${idx * 50}ms` }}
                     >

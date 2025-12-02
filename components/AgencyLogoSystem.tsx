@@ -75,7 +75,7 @@ export const AgencyLogoSystem: React.FC = () => {
             <div className="absolute inset-0 border border-agency-500/0 group-hover:border-agency-500/30 transition-all rounded-full scale-150"></div>
             <AgencyLogoMark size={80} className="text-agency-600 dark:text-agency-500 drop-shadow-xl shadow-agency-500/20 transition-colors" />
           </div>
-          <p className="text-xs text-light-text dark:text-dark-muted text-center px-4 leading-relaxed">The "Spur" combines structure (the hexagon) with dimension (the cube).</p>
+          <p className="text-xs text-light-text dark:text-dark-muted text-center px-4 leading-relaxed">The "Stack" symbolizes growth, scalability, and the building blocks of software architecture.</p>
         </div>
         <div className="md:col-span-2 bg-white dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-8 flex flex-col justify-center relative overflow-hidden transition-colors">
           <div className="absolute inset-0 grid-bg opacity-20"></div>

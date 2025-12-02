@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SMSYard } from './pages/SMSYard';
 import { AgencySpur } from './pages/AgencySpur';
 import { Landing } from './pages/Landing';
@@ -37,7 +37,7 @@ export const svgToPng = (svgString: string, width: number, height: number): Prom
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/smsyard" element={<SMSYard />} />
@@ -45,7 +45,7 @@ const App: React.FC = () => {
         {/* Redirect unknown routes to Landing */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

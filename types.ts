@@ -3,7 +3,9 @@ import React from 'react';
 export interface ColorSwatchProps {
   name: string;
   hex: string;
-  tailwindColor: string;
+  tailwindClass: string;
+  sub?: string;
+  ring?: string;
   dark?: boolean;
 }
 
@@ -14,5 +16,5 @@ export interface NavItem {
 
 export interface IconItem {
   name: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<any>;
 }

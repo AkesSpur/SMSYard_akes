@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { SectionHeader } from './SectionHeader';
-import { ArrowRight, Check, AlertCircle, ChevronDown } from 'lucide-react';
+import { ArrowRight, Check, AlertCircle, ChevronDown, MoreHorizontal } from 'lucide-react';
 
 export const BrandAssets: React.FC = () => {
   return (
@@ -77,6 +77,65 @@ export const BrandAssets: React.FC = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        {/* Data Table */}
+        <div className="md:col-span-2 space-y-6 bg-white dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl p-8 transition-colors">
+            <h3 className="font-display font-semibold text-lg text-primary-900 dark:text-white">Data Tables</h3>
+            <div className="overflow-x-auto rounded-lg border border-light-border dark:border-dark-border">
+                <table className="w-full text-sm text-left">
+                    <thead className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 font-medium border-b border-light-border dark:border-dark-border">
+                        <tr>
+                            <th className="px-4 py-3">Message ID</th>
+                            <th className="px-4 py-3">Status</th>
+                            <th className="px-4 py-3">Recipient</th>
+                            <th className="px-4 py-3 text-right">Cost</th>
+                            <th className="px-4 py-3 text-right"></th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-light-border dark:divide-dark-border bg-white dark:bg-dark-card text-primary-900 dark:text-white">
+                        <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                            <td className="px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">msg_01H8X2...</td>
+                            <td className="px-4 py-3">
+                                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
+                                    Delivered
+                                </span>
+                            </td>
+                            <td className="px-4 py-3">+1 (555) 123-4567</td>
+                            <td className="px-4 py-3 text-right text-slate-500 dark:text-slate-400">$0.0075</td>
+                            <td className="px-4 py-3 text-right">
+                                <button className="text-slate-400 hover:text-primary-900 dark:hover:text-white transition-colors"><MoreHorizontal size={16} /></button>
+                            </td>
+                        </tr>
+                        <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                            <td className="px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">msg_01H8X3...</td>
+                            <td className="px-4 py-3">
+                                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-medium bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20">
+                                    Failed
+                                </span>
+                            </td>
+                            <td className="px-4 py-3">+1 (555) 987-6543</td>
+                            <td className="px-4 py-3 text-right text-slate-500 dark:text-slate-400">$0.0000</td>
+                            <td className="px-4 py-3 text-right">
+                                <button className="text-slate-400 hover:text-primary-900 dark:hover:text-white transition-colors"><MoreHorizontal size={16} /></button>
+                            </td>
+                        </tr>
+                         <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                            <td className="px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">msg_01H8X4...</td>
+                             <td className="px-4 py-3">
+                                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-medium bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20">
+                                    Queued
+                                </span>
+                            </td>
+                            <td className="px-4 py-3">+44 7700 900077</td>
+                            <td className="px-4 py-3 text-right text-slate-500 dark:text-slate-400">$0.0450</td>
+                            <td className="px-4 py-3 text-right">
+                                <button className="text-slate-400 hover:text-primary-900 dark:hover:text-white transition-colors"><MoreHorizontal size={16} /></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

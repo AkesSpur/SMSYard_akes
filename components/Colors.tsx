@@ -1,11 +1,22 @@
-
-
 import React from 'react';
 import { SectionHeader } from './SectionHeader';
-import { COLORS, THEME_TOKENS, BUTTON_TOKENS } from '../constants';
 import { Sun, Moon } from 'lucide-react';
+import { ColorSwatchProps } from '../types';
 
-export const Colors: React.FC = () => {
+interface TokenItem {
+  token: string;
+  description: string;
+  light: { hex: string; label: string };
+  dark: { hex: string; label: string };
+}
+
+interface ColorsProps {
+  colors: ColorSwatchProps[];
+  themeTokens: TokenItem[];
+  buttonTokens: TokenItem[];
+}
+
+export const Colors: React.FC<ColorsProps> = ({ colors, themeTokens, buttonTokens }) => {
   return (
     <section className="space-y-12">
       {/* Main Palette */}
@@ -13,10 +24,11 @@ export const Colors: React.FC = () => {
         <SectionHeader title="Color Palette" subtitle="Tailwind Palette" id="colors" />
 
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {COLORS.map((color) => (
+          {colors.map((color) => (
             <div key={color.name} className="space-y-2 group">
               <div 
                 className={`h-20 rounded-lg shadow-sm ring-1 ring-inset group-hover:scale-105 transition-transform ${color.tailwindClass} ${color.ring ? color.ring : 'ring-black/5 dark:ring-white/10'}`} 
+                style={!color.tailwindClass ? { backgroundColor: color.hex } : {}}
               />
               <div>
                 <p className="text-sm font-semibold text-primary-900 dark:text-white">{color.name}</p>
@@ -37,7 +49,7 @@ export const Colors: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {THEME_TOKENS.map((item) => (
+            {themeTokens.map((item) => (
                 <div key={item.token} className="bg-white dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl overflow-hidden transition-colors">
                     <div className="p-4 border-b border-light-border dark:border-dark-border">
                         <h4 className="font-semibold text-primary-900 dark:text-white text-sm">{item.token}</h4>
@@ -85,7 +97,7 @@ export const Colors: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {BUTTON_TOKENS.map((item) => (
+            {buttonTokens.map((item) => (
                 <div key={item.token} className="bg-white dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl overflow-hidden transition-colors">
                     <div className="p-4 border-b border-light-border dark:border-dark-border">
                         <h4 className="font-semibold text-primary-900 dark:text-white text-sm">{item.token}</h4>

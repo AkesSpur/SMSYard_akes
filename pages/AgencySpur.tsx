@@ -11,6 +11,7 @@ import { Footer } from '../components/Footer';
 import { Toast } from '../components/Toast';
 import { AGENCY_COLORS, AGENCY_THEME_TOKENS, AGENCY_BUTTON_TOKENS } from '../agency-constants';
 import { Cpu, Code, Database, Globe, Layers, Command } from 'lucide-react';
+import { svgToPng } from '../App';
 
 export const AgencySpur: React.FC = () => {
   const [isToastVisible, setIsToastVisible] = useState(false);
@@ -31,18 +32,100 @@ export const AgencySpur: React.FC = () => {
     document.documentElement.classList.toggle('dark', newTheme === 'dark');
   };
 
+  const createAgencyLockupSvg = (textColor: string, accentColor: string, safetyMargin = false, scale = 1) => {
+    // The "Stack" Logo Path
+    const logoGroup = `
+      <g fill="${accentColor}">
+        <rect x="4" y="12" width="4" height="10" rx="1" />
+        <rect x="10" y="7" width="4" height="15" rx="1" />
+        <rect x="16" y="2" width="4" height="20" rx="1" />
+      </g>
+    `;
+
+    // Google Font import for reliable rendering in some viewers, though outlines are better for production
+    const fontStyle = `
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700&amp;display=swap');
+        text { font-family: 'Outfit', sans-serif; font-weight: 700; letter-spacing: 0.05em; }
+      </style>
+    `;
+
+    const margin = safetyMargin ? 32 : 0;
+    // Dimensions
+    const baseWidth = 260; 
+    const baseHeight = 32;
+    const width = (baseWidth + margin * 2) * scale;
+    const height = (baseHeight + margin * 2) * scale;
+    
+    // ViewBox
+    const viewBox = `0 0 ${width/scale} ${height/scale}`;
+
+    return {
+        svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${viewBox}" fill="none">
+                ${fontStyle}
+                <g transform="translate(${margin},${margin})">
+                    <g transform="translate(0, 4) scale(1)">${logoGroup}</g>
+                    <text x="32" y="24" font-size="24" fill="${textColor}">AGENCY<tspan fill="${accentColor}">SPUR</tspan></text>
+                </g>
+              </svg>`,
+        width,
+        height
+    };
+  };
+
   const handleDownload = async () => {
     setIsToastVisible(true);
     const zip = new JSZip();
     
-    // Generate text file
+    // 1. Generate text file
     let content = `AGENCYSPUR Brand System\nGenerated: ${new Date().toLocaleDateString()}\n\n`;
+    content += `COLORS:\n`;
     AGENCY_COLORS.forEach(c => content += `${c.name}: ${c.hex}\n`);
     zip.file("agency-brand-data.txt", content);
-    
-    // (Add specific download logic for AgencySpur here if needed)
+
+    // 2. Generate Logos
+    const logosFolder = zip.folder("logos");
+    const svgFolder = logosFolder?.folder("svg");
+    const pngFolder = logosFolder?.folder("png");
+
+    const variants = [
+        { name: 'agency-light-full', text: '#09090B', accent: '#7C3AED', safe: false },
+        { name: 'agency-dark-full', text: '#FFFFFF', accent: '#8B5CF6', safe: false },
+        { name: 'agency-light-safe', text: '#09090B', accent: '#7C3AED', safe: true },
+        { name: 'agency-dark-safe', text: '#FFFFFF', accent: '#8B5CF6', safe: true },
+    ];
 
     try {
+        for (const v of variants) {
+            // SVG
+            const svgData = createAgencyLockupSvg(v.text, v.accent, v.safe, 1);
+            svgFolder?.file(`${v.name}.svg`, svgData.svg);
+
+            // PNG (High Res 4x)
+            const pngData = createAgencyLockupSvg(v.text, v.accent, v.safe, 4);
+            const pngBlob = await svgToPng(pngData.svg, pngData.width, pngData.height);
+            pngFolder?.file(`${v.name}.png`, pngBlob);
+        }
+
+        // Mark Only (Stack Icon)
+        const markSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <g fill="#7C3AED">
+                <rect x="4" y="12" width="4" height="10" rx="1" />
+                <rect x="10" y="7" width="4" height="15" rx="1" />
+                <rect x="16" y="2" width="4" height="20" rx="1" />
+            </g>
+        </svg>`;
+        const markWhiteSvg = markSvg.replace('#7C3AED', '#FFFFFF');
+        const markBlackSvg = markSvg.replace('#7C3AED', '#000000');
+
+        svgFolder?.file('mark-violet.svg', markSvg);
+        svgFolder?.file('mark-white.svg', markWhiteSvg);
+        svgFolder?.file('mark-black.svg', markBlackSvg);
+        
+        // PNG Marks (Scale 10x for icon)
+        const markPngBlob = await svgToPng(markSvg.replace('width="24" height="24"', 'width="240" height="240"'), 240, 240);
+        pngFolder?.file('mark-violet.png', markPngBlob);
+
         const blob = await zip.generateAsync({ type: 'blob' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');

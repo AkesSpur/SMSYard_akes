@@ -7,7 +7,7 @@ import { Colors } from '../components/Colors';
 import { AgencyBrandAssets } from '../components/AgencyBrandAssets';
 import { AgencyIllustrations } from '../components/AgencyIllustrations';
 import { Icons } from '../components/Icons';
-import { Footer } from '../components/Footer';
+import { AgencyFooter } from '../components/AgencyFooter';
 import { Toast } from '../components/Toast';
 import { AGENCY_COLORS, AGENCY_THEME_TOKENS, AGENCY_BUTTON_TOKENS } from '../agency-constants';
 import { Cpu, Code, Database, Globe, Layers, Command } from 'lucide-react';
@@ -182,7 +182,7 @@ export const AgencySpur: React.FC = () => {
         <AgencyIllustrations />
         <Icons icons={agencyIcons} colorClass="text-agency-600 dark:text-agency-500" />
       </main>
-      <Footer />
+      <AgencyFooter />
       <Toast visible={isToastVisible} />
     </div>
   );

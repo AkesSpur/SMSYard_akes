@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SMSYard } from './pages/SMSYard';
 import { AgencySpur } from './pages/AgencySpur';
+import { AgencyPolicy } from './pages/AgencyPolicy';
 import { Landing } from './pages/Landing';
 
 // Export helper for use in pages
@@ -42,6 +43,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/smsyard" element={<SMSYard />} />
         <Route path="/agencyspur" element={<AgencySpur />} />
+        <Route path="/agencyspur/policy" element={<AgencyPolicy />} />
         {/* Redirect unknown routes to Landing */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

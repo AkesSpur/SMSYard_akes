@@ -5,6 +5,7 @@ export const NAV_ITEMS = [
   { label: 'Typography', href: '#typography' },
   { label: 'Colors', href: '#colors' },
   { label: 'Assets', href: '#assets' },
+  { label: 'Social', href: '#social' },
   { label: 'Illustrations', href: '#illustrations' },
   { label: 'Icons', href: '#icons' },
 ];

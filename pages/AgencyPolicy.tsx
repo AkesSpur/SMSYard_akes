@@ -44,7 +44,7 @@ export const AgencyPolicy: React.FC = () => {
             Agency<span className="text-agency-600 dark:text-agency-500">Spur</span> Policies
           </h1>
           <p className="text-light-text dark:text-dark-muted">
-            Last updated: March 28, 2026. These policies govern all web development engagements with AgencySpur.
+            Last updated: October 14, 2023. These policies govern all web development engagements with AgencySpur.
           </p>
         </div>
 
@@ -162,11 +162,6 @@ export const AgencyPolicy: React.FC = () => {
           </section>
         </div>
 
-        <div className="mt-24 pt-12 border-t border-light-border dark:border-dark-border text-center">
-          <p className="text-sm text-light-text dark:text-dark-muted">
-            Questions about our policies? Contact us at <a href="mailto:legal@agencyspur.com" className="text-agency-600 dark:text-agency-400 font-medium">legal@agencyspur.com</a>
-          </p>
-        </div>
       </main>
 
       <AgencyFooter />

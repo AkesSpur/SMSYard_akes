@@ -15,6 +15,7 @@ export const AgencyFooter: React.FC = () => {
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-xs font-medium text-light-text dark:text-dark-muted uppercase tracking-wider">
                 <Link to="/agencyspur" className="hover:text-agency-600 dark:hover:text-agency-500 transition-colors">Brand System</Link>
                 <Link to="/agencyspur/policy" className="hover:text-agency-600 dark:hover:text-agency-500 transition-colors">Agency Policies</Link>
+                <Link to="/agencyspur/legal-response" className="hover:text-agency-600 dark:hover:text-agency-500 transition-colors">Legal Correspondence</Link>
                 <a href="#" className="hover:text-agency-600 dark:hover:text-agency-500 transition-colors">Client Portal</a>
                 <a href="#" className="hover:text-agency-600 dark:hover:text-agency-500 transition-colors">Contact Support</a>
             </div>

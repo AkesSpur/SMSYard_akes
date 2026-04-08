@@ -133,13 +133,6 @@ export const LegalResponse: React.FC = () => {
               <p className="font-bold text-zinc-900 dark:text-white text-lg">SPURDIGITAL Enterprise</p>
               <p className="text-sm text-slate-500 dark:text-zinc-400">+7 951 569 58 75</p>
             </div>
-            
-            {/* Stamp Placeholder */}
-            <div className="mt-8 flex items-center gap-4 opacity-50 grayscale">
-              <div className="w-20 h-20 rounded-full border-4 border-agency-600 flex items-center justify-center text-[10px] font-bold text-agency-600 text-center uppercase rotate-12">
-                Official<br/>Document
-              </div>
-            </div>
           </div>
 
           {/* Footer Decor */}

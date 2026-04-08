@@ -35,9 +35,6 @@ export const AgencyHeader: React.FC<HeaderProps> = ({ onDownload, theme, toggleT
           <span className="font-agency font-bold text-lg tracking-wide text-primary-900 dark:text-white uppercase">
             Agency<span className="text-agency-600 dark:text-agency-500 transition-colors">Spur</span>
           </span>
-          <span className="ml-3 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-[10px] font-semibold uppercase tracking-wide hidden sm:inline-block">
-            Design System
-          </span>
         </div>
         
         {/* Desktop Navigation & Actions */}

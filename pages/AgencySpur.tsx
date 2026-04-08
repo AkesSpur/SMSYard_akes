@@ -74,67 +74,83 @@ export const AgencySpur: React.FC = () => {
   };
 
   const handleDownload = async () => {
+    console.log('Starting download...');
     setIsToastVisible(true);
-    const zip = new JSZip();
     
-    // 1. Generate text file
-    let content = `AGENCYSPUR Brand System\nGenerated: ${new Date().toLocaleDateString()}\n\n`;
-    content += `COLORS:\n`;
-    AGENCY_COLORS.forEach(c => content += `${c.name}: ${c.hex}\n`);
-    zip.file("agency-brand-data.txt", content);
-
-    // 2. Generate Logos
-    const logosFolder = zip.folder("logos");
-    const svgFolder = logosFolder?.folder("svg");
-    const pngFolder = logosFolder?.folder("png");
-
-    const variants = [
-        { name: 'agency-light-full', text: '#09090B', accent: '#7C3AED', safe: false },
-        { name: 'agency-dark-full', text: '#FFFFFF', accent: '#8B5CF6', safe: false },
-        { name: 'agency-light-safe', text: '#09090B', accent: '#7C3AED', safe: true },
-        { name: 'agency-dark-safe', text: '#FFFFFF', accent: '#8B5CF6', safe: true },
-    ];
-
     try {
-        for (const v of variants) {
-            // SVG
-            const svgData = createAgencyLockupSvg(v.text, v.accent, v.safe, 1);
-            svgFolder?.file(`${v.name}.svg`, svgData.svg);
+      const zip = new JSZip();
+      
+      // 1. Generate text file
+      let content = `AGENCYSPUR Brand System\nGenerated: ${new Date().toLocaleDateString()}\n\n`;
+      content += `COLORS:\n`;
+      AGENCY_COLORS.forEach(c => content += `${c.name}: ${c.hex}\n`);
+      zip.file("agency-brand-data.txt", content);
 
-            // PNG (High Res 4x)
+      // 2. Generate Logos
+      const logosFolder = zip.folder("logos");
+      const svgFolder = logosFolder?.folder("svg");
+      const pngFolder = logosFolder?.folder("png");
+
+      const variants = [
+          { name: 'agency-light-full', text: '#09090B', accent: '#7C3AED', safe: false },
+          { name: 'agency-dark-full', text: '#FFFFFF', accent: '#8B5CF6', safe: false },
+          { name: 'agency-light-safe', text: '#09090B', accent: '#7C3AED', safe: true },
+          { name: 'agency-dark-safe', text: '#FFFFFF', accent: '#8B5CF6', safe: true },
+      ];
+
+      for (const v of variants) {
+          // SVG
+          const svgData = createAgencyLockupSvg(v.text, v.accent, v.safe, 1);
+          svgFolder?.file(`${v.name}.svg`, svgData.svg);
+
+          // PNG (High Res 4x)
+          try {
             const pngData = createAgencyLockupSvg(v.text, v.accent, v.safe, 4);
             const pngBlob = await svgToPng(pngData.svg, pngData.width, pngData.height);
             pngFolder?.file(`${v.name}.png`, pngBlob);
-        }
+          } catch (pngErr) {
+            console.error(`Failed to generate PNG for ${v.name}:`, pngErr);
+          }
+      }
 
-        // Mark Only (Stack Icon)
-        const markSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <g fill="#7C3AED">
-                <rect x="4" y="12" width="4" height="10" rx="1" />
-                <rect x="10" y="7" width="4" height="15" rx="1" />
-                <rect x="16" y="2" width="4" height="20" rx="1" />
-            </g>
-        </svg>`;
-        const markWhiteSvg = markSvg.replace('#7C3AED', '#FFFFFF');
-        const markBlackSvg = markSvg.replace('#7C3AED', '#000000');
+      // Mark Only (Stack Icon)
+      const markSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <g fill="#7C3AED">
+              <rect x="4" y="12" width="4" height="10" rx="1" />
+              <rect x="10" y="7" width="4" height="15" rx="1" />
+              <rect x="16" y="2" width="4" height="20" rx="1" />
+          </g>
+      </svg>`;
+      const markWhiteSvg = markSvg.replace('#7C3AED', '#FFFFFF');
+      const markBlackSvg = markSvg.replace('#7C3AED', '#000000');
 
-        svgFolder?.file('mark-violet.svg', markSvg);
-        svgFolder?.file('mark-white.svg', markWhiteSvg);
-        svgFolder?.file('mark-black.svg', markBlackSvg);
-        
-        // PNG Marks (Scale 10x for icon)
+      svgFolder?.file('mark-violet.svg', markSvg);
+      svgFolder?.file('mark-white.svg', markWhiteSvg);
+      svgFolder?.file('mark-black.svg', markBlackSvg);
+      
+      // PNG Marks (Scale 10x for icon)
+      try {
         const markPngBlob = await svgToPng(markSvg.replace('width="24" height="24"', 'width="240" height="240"'), 240, 240);
         pngFolder?.file('mark-violet.png', markPngBlob);
+      } catch (markPngErr) {
+        console.error('Failed to generate mark PNG:', markPngErr);
+      }
 
-        const blob = await zip.generateAsync({ type: 'blob' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'agencyspur-kit.zip';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } catch (e) { console.error(e); }
+      console.log('Generating zip blob...');
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'agencyspur-kit.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      console.log('Download complete.');
+    } catch (e) { 
+      console.error('Download failed:', e); 
+      alert('Failed to generate download. Please check console for details.');
+    }
   };
 
   useEffect(() => {
@@ -160,13 +176,6 @@ export const AgencySpur: React.FC = () => {
         
         {/* Hero */}
         <section className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-agency-50 dark:bg-agency-900/30 border border-agency-100 dark:border-agency-800 text-agency-600 dark:text-agency-400 text-xs font-medium mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-agency-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-agency-600 dark:bg-agency-400"></span>
-            </span>
-            v1.0 Release
-          </div>
           <h1 className="font-agency font-bold text-5xl tracking-wide text-primary-900 dark:text-white mb-6 uppercase">
             AGENCY<span className="text-agency-600 dark:text-agency-500">SPUR</span>
           </h1>
